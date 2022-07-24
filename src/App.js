@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
+import { increment } from './redux/action/Action';
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    props.inc();
+  },[])
+  console.log(props.state)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello world</h1>
+      <br/>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    state:state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    inc: () => dispatch({type: 'Increment',payload: 1})
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
